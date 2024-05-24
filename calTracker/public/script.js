@@ -1,10 +1,15 @@
 const foodItems = [
-    { name: 'Milk', category: 'dairy', calories: 42 },
     { name: 'Cheese', category: 'dairy', calories: 113 },
-    { name: 'Apple', category: 'fruits', calories: 52 },
+    { name: 'Milk', category: 'dairy', calories: 89 },
+    { name: 'Lady-Finger', category: 'vegetables', calories: 82 },
+    { name: 'Apple', category: 'fruits', calories: 92 },
     { name: 'Banana', category: 'fruits', calories: 96 },
     { name: 'Carrot', category: 'vegetables', calories: 41 },
     { name: 'Broccoli', category: 'vegetables', calories: 55 },
+    { name: 'Mango', category: 'fruits', calories: 50 },
+    { name: 'Guava', category: 'fruits', calories: 69 },
+    { name: 'Cabage', category: 'vegetables', calories: 85 },
+    { name: 'Egg', category: 'dairy', calories: 18 },
     // Add more food items as needed
 ];
 
