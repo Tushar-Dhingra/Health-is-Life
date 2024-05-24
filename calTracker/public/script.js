@@ -1,25 +1,17 @@
+const foodItems = [
+    { name: 'Milk', category: 'dairy', calories: 42 },
+    { name: 'Cheese', category: 'dairy', calories: 113 },
+    { name: 'Apple', category: 'fruits', calories: 52 },
+    { name: 'Banana', category: 'fruits', calories: 96 },
+    { name: 'Carrot', category: 'vegetables', calories: 41 },
+    { name: 'Broccoli', category: 'vegetables', calories: 55 },
+    // Add more food items as needed
+];
+
 document.addEventListener('DOMContentLoaded', () => {
     const categorySelect = document.getElementById('category-select');
     const searchInput = document.getElementById('search-input');
     const foodTableBody = document.getElementById('food-table').querySelector('tbody');
-
-    function fetchFoodItems() {
-        const selectedCategory = categorySelect.value;
-        const searchText = searchInput.value;
-
-        const url = new URL('/api/food_items', window.location.origin);
-        const params = new URLSearchParams();
-        if (selectedCategory !== 'all') params.append('category', selectedCategory);
-        if (searchText) params.append('search', searchText);
-        url.search = params.toString();
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                displayFoodItems(data);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }
 
     function displayFoodItems(items) {
         foodTableBody.innerHTML = '';
@@ -30,9 +22,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    categorySelect.addEventListener('change', fetchFoodItems);
-    searchInput.addEventListener('input', fetchFoodItems);
+    function filterFoodItems() {
+        const selectedCategory = categorySelect.value;
+        const searchText = searchInput.value.toLowerCase();
+        
+        const filteredItems = foodItems.filter(item => {
+            const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+            const matchesSearch = item.name.toLowerCase().includes(searchText);
+            return matchesCategory && matchesSearch;
+        });
+        
+        displayFoodItems(filteredItems);
+    }
 
-    // Initial fetch of all food items
-    fetchFoodItems();
+    categorySelect.addEventListener('change', filterFoodItems);
+    searchInput.addEventListener('input', filterFoodItems);
+
+    // Initial display of all food items
+    displayFoodItems(foodItems);
 });
